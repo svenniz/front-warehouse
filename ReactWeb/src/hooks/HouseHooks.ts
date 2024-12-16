@@ -7,22 +7,16 @@ const useFetchHouses = () => {
     return useQuery<House[], AxiosError>({
         queryKey: ["houses"],
         queryFn: () =>
-            axios.get(`${config.baseApiUrl}/houses`).then((response)=>response.data),
+            axios.get(`${config.baseApiUrl}/houses`).then((res)=>res.data),
     });
-
-    // const [houses,setHouses] = useState<House[]>([]);
-
-    // useEffect(()=>{
-    //     const fetchHouses = async () => {
-    //         const response = await fetch(`${config.baseApiUrl}/houses`);
-    //         const houses = await response.json();
-    //         setHouses(houses);
-    //     };
-    //     fetchHouses();
-
-    // }, [])
-
-    // return houses;
+}
+const useFetchHouse = (id:number) => {
+    return useQuery<House, AxiosError>({
+        queryKey: ["houses", id],
+        queryFn: () =>
+            axios.get(`${config.baseApiUrl}/house/${id}`).then((res)=>res.data)
+    });
 }
 
 export default useFetchHouses;
+export  {useFetchHouse};
