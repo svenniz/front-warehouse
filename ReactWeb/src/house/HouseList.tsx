@@ -1,16 +1,10 @@
 import { useState } from "react";
 import { House } from "../types/house";
 import config from "../config";
+import useFetchHouses from "../hooks/HouseHooks";
 
 const HouseList = () => {
-    const [houses,setHouses] = useState<House[]>([]);
-
-    const fetchHouses = async () => {
-        const rsp = await fetch(`${config.baseApiUrl}/houses`);
-        const houses = await rsp.json();
-        setHouses(houses);
-    };
-    fetchHouses();
+    const {data} = useFetchHouses();
 
     return (
         <div>
@@ -29,7 +23,7 @@ const HouseList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {houses.map((h) => (
+                    {data && data.map((h: House) => (
                         <tr key={h.id}>
                             <td>{h.address}</td>
                             <td>{h.country}</td>
