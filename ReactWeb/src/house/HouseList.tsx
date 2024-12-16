@@ -2,8 +2,10 @@ import { House } from "../types/house";
 import useFetchHouses from "../hooks/HouseHooks";
 import { currencyFormatter } from "../config";
 import ApiStatus from "../ApiStatus";
+import { useNavigate } from "react-router-dom";
 
 const HouseList = () => {
+    const Nav = useNavigate();
     const {data, status, isSuccess} = useFetchHouses();
     if(!isSuccess) return <ApiStatus status={status}/>
 
@@ -25,7 +27,7 @@ const HouseList = () => {
                 </thead>
                 <tbody>
                     {data && data.map((h: House) => (
-                        <tr key={h.id}>
+                        <tr key={h.id} onClick={()=>Nav(`/house/${h.id}`)}>
                             <td>{h.address}</td>
                             <td>{h.country}</td>
                             <td>{currencyFormatter.format(h.price)}</td>
