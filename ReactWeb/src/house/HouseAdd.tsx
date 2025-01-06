@@ -10,7 +10,8 @@ const HouseAdd = () => {
         country: "",
         description: "",
         price: 0,
-        photo: ""
+        photo: "",
+        id: 0
     };
     return(
         <HouseForm
